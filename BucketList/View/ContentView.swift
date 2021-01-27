@@ -4,12 +4,12 @@
 //
 //  Created by PRABALJIT WALIA     on 02/12/20.
 //
-
+import MapKit
 import SwiftUI
 import LocalAuthentication
 
 struct ContentView: View {
-    
+    @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var isUnlocked = false
     
     func authenticate(){
@@ -36,14 +36,14 @@ struct ContentView: View {
     }
 
     var body: some View {
-        MapView()
-            .edgesIgnoringSafeArea(.all)
-        VStack{
-            if self.isUnlocked{
-                Text("Unlocked")
-            }else{
-                Text("Locked")
-            }
+
+        ZStack{
+MapView(centerCoordinate: $centerCoordinate)
+    .edgesIgnoringSafeArea(.all)
+    Circle()
+        .fill()
+        .opacity(0.3)
+        .frame(width: 32, height: 32)
         }
         .onAppear(perform:authenticate)
     }
