@@ -9,14 +9,14 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
+    @Binding var centerCoordinate:CLLocationCoordinate2D
+    func makeUIView(context: Context) -> some UIView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        
     
-    class Coordinator: NSObject,MKMapViewDelegate {
-        var parent:MapView
-        init(_ parent:MapView) {
-            self.parent = parent
-        }
+        return mapView
     }
-    
     func makeCoordinator()-> Coordinator{
         return Coordinator(self)
     }
@@ -25,26 +25,25 @@ struct MapView: UIViewRepresentable {
         print(mapView.centerCoordinate)
     }
     
-    func makeUIView(context: Context) -> some UIView {
-        let mapView = MKMapView()
-        mapView.delegate = context.coordinator
-        
-        let annotation = MKPointAnnotation()
-        annotation.title = "London"
-        annotation.subtitle = "Capital of England"
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: 0.13)
-        mapView.addAnnotation(annotation)
-        return mapView
-    }
+ 
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         
     }
+    class Coordinator: NSObject,MKMapViewDelegate {
+        var parent:MapView
+        
+        init(_ parent:MapView) {
+            self.parent = parent
+        }
+    }
+    
+
     // to customise the pin on the map
     func mapView(mapView:MKMapView, viewFor annotation:MKAnnotation)->MKAnnotation?{
         let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
         view.canShowCallout = true
-        return view
+        return view.annotation
     }
     
 
@@ -52,6 +51,15 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
+    }
+}
+extension MKPointAnnotation{
+    static var example:MKPointAnnotation{
+        let annotation = MKPointAnnotation()
+        annotation.title = "London"
+        annotation.subtitle = "Home to the 2012 Summer olympics"
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
+        return annotation
     }
 }
