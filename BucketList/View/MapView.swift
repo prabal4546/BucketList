@@ -53,9 +53,9 @@ extension MKPointAnnotation{
         return annotation
     }
 }
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView(annotations: [MKPointAnnotation.example], centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
-    }
-}
+//struct MapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapView(annotations: [MKPointAnnotation.example], centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
+//    }
+//}
 
