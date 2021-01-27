@@ -10,6 +10,7 @@ import LocalAuthentication
 
 struct ContentView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
+    @State private var locations = [MKPointAnnotation]()
     @State private var isUnlocked = false
     
     func authenticate(){
@@ -38,14 +39,32 @@ struct ContentView: View {
     var body: some View {
 
         ZStack{
-MapView(centerCoordinate: $centerCoordinate)
+            MapView(annotations:locations, centerCoordinate: $centerCoordinate)
     .edgesIgnoringSafeArea(.all)
     Circle()
         .fill()
         .opacity(0.3)
         .frame(width: 32, height: 32)
+            VStack{
+                Spacer()
+                HStack(){
+                    Spacer()
+                    Button( action:{
+                        let newLocation = MKPointAnnotation()
+                        newLocation.coordinate = self.centerCoordinate
+                        self.locations.append(newLocation)
+                    }){
+                        Image(systemName: "plus")
+                            .padding()
+                            .background(Color.black.opacity(0.75))
+                            .foregroundColor(.white)
+                            .font(.title)
+                            .clipShape(Circle())
+                            .padding(.trailing)
+                    }
+                }
+            }
         }
-        .onAppear(perform:authenticate)
     }
 }
 

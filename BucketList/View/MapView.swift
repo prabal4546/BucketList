@@ -9,51 +9,41 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
+
+    var annotations:[MKPointAnnotation]
     @Binding var centerCoordinate:CLLocationCoordinate2D
+    
+
     func makeUIView(context: Context) -> some UIView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        
-    
         return mapView
+    }
+    func updateUIView(_ view: MKMapView, context: Context) {
+        if annotations.count != view.annotations.count{
+            view.removeAnnotation(view.annotations as! MKAnnotation)
+            view.addAnnotations(annotations)
+
+        }
     }
     func makeCoordinator()-> Coordinator{
         return Coordinator(self)
     }
-    
-    func mapViewDidChangeVisibleRegion(_ mapView:MKMapView){
-        print(mapView.centerCoordinate)
-    }
-    
- 
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        
-    }
+
+
     class Coordinator: NSObject,MKMapViewDelegate {
         var parent:MapView
         
         init(_ parent:MapView) {
             self.parent = parent
         }
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            parent.centerCoordinate = mapView.centerCoordinate
+        }
     }
-    
-
-    // to customise the pin on the map
-    func mapView(mapView:MKMapView, viewFor annotation:MKAnnotation)->MKAnnotation?{
-        let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        view.canShowCallout = true
-        return view.annotation
-    }
-    
 
 }
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
-    }
-}
 extension MKPointAnnotation{
     static var example:MKPointAnnotation{
         let annotation = MKPointAnnotation()
@@ -63,3 +53,9 @@ extension MKPointAnnotation{
         return annotation
     }
 }
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView(annotations: [MKPointAnnotation.example], centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
+    }
+}
+
