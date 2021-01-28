@@ -14,14 +14,14 @@ struct MapView: UIViewRepresentable {
     @Binding var centerCoordinate:CLLocationCoordinate2D
     
 
-    func makeUIView(context: Context) -> some UIView {
+    func makeUIView(context: Context) -> MKMapView{
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         return mapView
     }
     func updateUIView(_ view: MKMapView, context: Context) {
         if annotations.count != view.annotations.count{
-            view.removeAnnotation(view.annotations as! MKAnnotation)
+            view.removeAnnotations(view.annotations)
             view.addAnnotations(annotations)
 
         }
@@ -40,6 +40,19 @@ struct MapView: UIViewRepresentable {
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
         }
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            let identifier = "Placemark"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil{
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            }else{
+                annotationView?.annotation = annotation
+            }
+            return annotationView
+        }
+      
     }
 
 }
@@ -53,9 +66,9 @@ extension MKPointAnnotation{
         return annotation
     }
 }
-//struct MapView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapView(annotations: [MKPointAnnotation.example], centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
-//    }
-//}
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView(annotations: [MKPointAnnotation.example], centerCoordinate: .constant(MKPointAnnotation.example.coordinate))
+    }
+}
 

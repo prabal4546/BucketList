@@ -13,28 +13,28 @@ struct ContentView: View {
     @State private var locations = [MKPointAnnotation]()
     @State private var isUnlocked = false
     
-    func authenticate(){
-        let context = LAContext()
-        var error:NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
-            let reason = "we need to securely unlock your data."
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: {success, authenticationError in
-                DispatchQueue.main.async {
-                    if success{
-                        //if authenticated successfully
-                        self.isUnlocked = true
-                        
-                    }else{
-                        
-                    }
-                }
-            })
-        }
-        else{
-            //their is not authentication at all, like iPod touch
-        }
-    }
+//    func authenticate(){
+//        let context = LAContext()
+//        var error:NSError?
+//
+//        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
+//            let reason = "we need to securely unlock your data."
+//            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: {success, authenticationError in
+//                DispatchQueue.main.async {
+//                    if success{
+//                        //if authenticated successfully
+//                        self.isUnlocked = true
+//
+//                    }else{
+//
+//                    }
+//                }
+//            })
+//        }
+//        else{
+//            //their is not authentication at all, like iPod touch
+//        }
+//    }
 
     var body: some View {
 
@@ -51,6 +51,7 @@ struct ContentView: View {
                     Spacer()
                     Button( action:{
                         let newLocation = MKPointAnnotation()
+                        newLocation.title = "Atlantis"
                         newLocation.coordinate = self.centerCoordinate
                         self.locations.append(newLocation)
                     }){
