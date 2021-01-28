@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		915FFF5F25C2CB2500DE7290 /* MKPointAnnotation-ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FFF5E25C2CB2400DE7290 /* MKPointAnnotation-ObservableObject.swift */; };
 		915FFF6225C2CE2000DE7290 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FFF6125C2CE2000DE7290 /* EditView.swift */; };
+		915FFF6625C2D41400DE7290 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FFF6525C2D41400DE7290 /* Result.swift */; };
 		91C1242B2577D1F8008117F6 /* BucketListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1242A2577D1F8008117F6 /* BucketListApp.swift */; };
 		91C1242D2577D1F8008117F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C1242C2577D1F8008117F6 /* ContentView.swift */; };
 		91C1242F2577D1FD008117F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91C1242E2577D1FD008117F6 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		915FFF5E25C2CB2400DE7290 /* MKPointAnnotation-ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation-ObservableObject.swift"; sourceTree = "<group>"; };
 		915FFF6125C2CE2000DE7290 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		915FFF6525C2D41400DE7290 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		91C124272577D1F8008117F6 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91C1242A2577D1F8008117F6 /* BucketListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListApp.swift; sourceTree = "<group>"; };
 		91C1242C2577D1F8008117F6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +41,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		915FFF6825C2D42600DE7290 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				91C1242A2577D1F8008117F6 /* BucketListApp.swift */,
+				915FFF5E25C2CB2400DE7290 /* MKPointAnnotation-ObservableObject.swift */,
+				915FFF6525C2D41400DE7290 /* Result.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		91C1241E2577D1F8008117F6 = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +70,7 @@
 		91C124292577D1F8008117F6 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
-				91C1242A2577D1F8008117F6 /* BucketListApp.swift */,
+				915FFF6825C2D42600DE7290 /* Model */,
 				91C12467257B8797008117F6 /* View */,
 				91C1242E2577D1FD008117F6 /* Assets.xcassets */,
 				91C124332577D1FD008117F6 /* Info.plist */,
@@ -80,7 +92,6 @@
 			children = (
 				91C1242C2577D1F8008117F6 /* ContentView.swift */,
 				91C1243A2578C299008117F6 /* MapView.swift */,
-				915FFF5E25C2CB2400DE7290 /* MKPointAnnotation-ObservableObject.swift */,
 				915FFF6125C2CE2000DE7290 /* EditView.swift */,
 			);
 			path = View;
@@ -155,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				915FFF6625C2D41400DE7290 /* Result.swift in Sources */,
 				91C1242D2577D1F8008117F6 /* ContentView.swift in Sources */,
 				915FFF6225C2CE2000DE7290 /* EditView.swift in Sources */,
 				915FFF5F25C2CB2500DE7290 /* MKPointAnnotation-ObservableObject.swift in Sources */,
