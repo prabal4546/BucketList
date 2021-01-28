@@ -78,16 +78,38 @@ struct ContentView: View {
                     
                 })
             }
-            .sheet(isPresented: $showingEditScreen){
+            .sheet(isPresented: $showingEditScreen,onDismiss: saveData){
                 if self.selectedPlace != nil{
                     EditView(placemark: self.selectedPlace!)
                 }
             }
-        }
+        }.onAppear(perform:loadData)
     }
     func getDocumentsDirectory()->URL{
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    func loadData() {
+        let filename = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
+
+        do {
+            let data = try Data(contentsOf: filename)
+            locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
+        } catch {
+            print("Unable to load saved data.")
+        }
+    }
+    func saveData() {
+        do{
+            let fileName = getDocumentsDirectory().appendingPathComponent("savedPlaces")
+            let data = try JSONEncoder().encode(self.locations)
+            try data.write(to: fileName, options: [.atomicWrite, .completeFileProtection])
+
+        }
+        catch{
+            print("Unable to save data.")
+
+        }
     }
 }
 
