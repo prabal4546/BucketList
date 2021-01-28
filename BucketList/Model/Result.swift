@@ -13,7 +13,7 @@ struct Query: Codable {
     let pages:[Int:Page]
 }
 
-struct Page:Codable,Comparable {
+struct Page: Codable,Comparable {
     let pageid:UUID
     let title:String
     let terms:[String:[String]]?

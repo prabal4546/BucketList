@@ -10,7 +10,7 @@ import LocalAuthentication
 
 struct ContentView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
-    @State private var locations = [MKPointAnnotation]()
+    @State private var locations = [CodableMKPointAnnotation]()
     @State private var isUnlocked = false
     @State private var selectedPlace:MKPointAnnotation?
     @State private var showingPlaceDetails = false
@@ -53,7 +53,7 @@ struct ContentView: View {
                 HStack(){
                     Spacer()
                     Button( action:{
-                        let newLocation = MKPointAnnotation()
+                        let newLocation = CodableMKPointAnnotation()
                         newLocation.title = "Atlantis"
                         newLocation.coordinate = self.centerCoordinate
                         self.locations.append(newLocation)
@@ -84,6 +84,10 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    func getDocumentsDirectory()->URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 }
 
