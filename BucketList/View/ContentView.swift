@@ -15,34 +15,34 @@ struct ContentView: View {
     @State private var selectedPlace:MKPointAnnotation?
     @State private var showingPlaceDetails = false
     @State private var showingEditScreen = false
-
-
-
+    
+    
+    
     var body: some View {
-
+        
         ZStack{
                 MapView(annotations:locations, centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails)
                     .edgesIgnoringSafeArea(.all)
-
+                
                 Circle()
                     .fill()
                     .opacity(0.3)
                     .frame(width: 32, height: 32)
-
+                
                 VStack{
                     Spacer()
                     HStack(){
                         Spacer()
                         Button( action:{
                             let newLocation = CodableMKPointAnnotation()
-                            newLocation.title = "london"
+                            newLocation.title = "Atlantis"
                             newLocation.coordinate = self.centerCoordinate
                             self.locations.append(newLocation)
-
+                            
                             self.selectedPlace = newLocation
                             self.showingEditScreen = true
                         }){
-                            Image(systemName: "plus").imageScale(.large)
+                            Image(systemName: "plus")
                                 .padding()
                                 .background(Color.black.opacity(0.75))
                                 .foregroundColor(.white)
@@ -56,7 +56,7 @@ struct ContentView: View {
                 Alert(title: Text(selectedPlace?.title ?? "Unknown"), message: Text(selectedPlace?.subtitle ?? "Missing place information"), primaryButton: .default(Text("Ok")),secondaryButton: .default(Text("Edit")){
                     //edit this place
                     self.showingEditScreen = true
-
+                    
                 }
                 )
             }
@@ -73,7 +73,7 @@ struct ContentView: View {
     }
     func loadData() {
         let filename = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
-
+        
         do {
             let data = try Data(contentsOf: filename)
             locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
@@ -86,17 +86,17 @@ struct ContentView: View {
             let fileName = getDocumentsDirectory().appendingPathComponent("savedPlaces")
             let data = try JSONEncoder().encode(self.locations)
             try data.write(to: fileName, options: [.atomicWrite, .completeFileProtection])
-
+            
         }
         catch{
             print("Unable to save data.")
-
+            
         }
     }
     func authenticate(){
         let context = LAContext()
         var error:NSError?
-
+        
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error){
             let reason = "We need to securely unlock your data."
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: {success, authenticationError in
@@ -104,9 +104,9 @@ struct ContentView: View {
                     if success{
                         //if authenticated successfully
                         self.isUnlocked = true
-
+                        
                     }else{
-
+                        
                     }
                 }
             })
@@ -116,6 +116,9 @@ struct ContentView: View {
         }
     }
 }
+
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
